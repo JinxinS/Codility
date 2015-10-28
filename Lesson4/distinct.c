@@ -21,3 +21,17 @@
  * expected worst-case space complexity is O(N), beyond input storage (not counting the storage required for input arguments).
  * Elements of input arrays can be modified.
  * */
+int cmp (const void * a, const void * b)
+{
+	   return ( (*(int*)a) - (*(int*)b) );
+}
+
+int solution(int A[],int N){
+	if(N==0) return 0;
+	qsort(A,N,sizeof(int),cmp);
+	int ret = 0;
+	for(int i = 1; i < N ; ++i){
+		if(A[i] != A[i-1]) ++ret;
+	}	
+	return ret + 1;
+}

@@ -42,3 +42,23 @@
 *expected worst-case space complexity is O(1), beyond input storage (not counting the storage required for input arguments).
 *Elements of input arrays can be modified.
 **/
+int cmp (const void * a, const void * b)
+{
+	   return ( abs(*(int*)a) - abs(*(int*)b) );
+}
+
+int solution(int A[], int N) {
+	if(N==3) return A[N-1]*A[N-2]*A[N-3];
+	qsort(A, N, sizeof(int), cmp);  
+	int r  = A[N-1]*A[N-2];
+	for(int i = N-3 ; i >=0; --i ) {   
+		if((r > 0 && A[i] > 0) || (r < 0 && A[i] < 0))
+			return r*A[i];
+	}
+	if(r == 0) return 0;
+	if(r < 0) {
+		if (A[N-1] > 0)	return A[N-4]*A[N-3]*A[N-1];
+		else return A[N-4]*A[N-3]*A[N-2];
+	}
+	if(r > 0)  return A[0]* A[1]* A[2];
+}
